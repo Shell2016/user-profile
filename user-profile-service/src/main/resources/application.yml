@@ -1,0 +1,84 @@
+spring:
+  webflux:
+    base-path: ${BASE_PATH}
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yml
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: liquibase, health, prometheus
+  endpoint:
+    health:
+      show-details: always
+springdoc:
+  show-actuator: true
+server:
+  port: 8443
+  ssl:
+    enabled: ${IS_SSL_ENABLED}
+    key-store-type: ${KEY_STORE_TYPE}
+    key-store: ${KEY_STORE_FILE}
+    key-store-password: ${KEY_STORE_PASSWORD}
+    protocol: TLS
+    enabled-protocols: ${TLS_PROTOCOL_VERSION}
+jwt:
+  secret: b5f59337a612a2a7dc07328f3e7d1a04722967c7f06df20a499a7d3f91ff2a7e
+  expiration: 1200
+  alg: HS256
+  refresh:
+    expiration: 604800
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+server:
+  error:
+    include-message: always
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-e2e.yml
+server:
+  error:
+    include-message: always
+---
+spring:
+  config:
+    activate:
+      on-profile: e2e
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-e2e.yml
+    drop-first: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: liquibase, health, prometheus, mappings
+server:
+  error:
+    include-message: always

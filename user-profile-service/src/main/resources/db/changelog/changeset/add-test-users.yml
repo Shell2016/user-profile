@@ -1,0 +1,117 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Artem
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: first_name
+                  value: Gregory
+              - column:
+                  name: last_name
+                  value: House
+              - column:
+                  name: email
+                  value: housegregory213@gmail.com
+              - column:
+                  name: password
+                  value: "$2a$10$xbe267.x/EN5Lz6b24Hhuehof8YPtjeXUe0u0V98TfohLy3YR2pj." # encoded in Base64 password "123456"
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: first_name
+                  value: Alex
+              - column:
+                  name: last_name
+                  value: Morgan
+              - column:
+                  name: email
+                  value: marrolex@gmail.com
+              - column:
+                  name: password
+                  value: "$2a$10$xbe267.x/EN5Lz6b24Hhuehof8YPtjeXUe0u0V98TfohLy3YR2pj." # encoded in Base64 password "123456"
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: first_name
+                  value: James
+              - column:
+                  name: last_name
+                  value: Williams
+              - column:
+                  name: email
+                  value: jamewilliams@gmail.com
+              - column:
+                  name: password
+                  value: "$2a$10$xbe267.x/EN5Lz6b24Hhuehof8YPtjeXUe0u0V98TfohLy3YR2pj." # encoded in Base64 password "123456"
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: first_name
+                  value: For
+              - column:
+                  name: last_name
+                  value: Jwt
+              - column:
+                  name: email
+                  value: jwt@gmail.com
+              - column:
+                  name: password
+                  value: "$2a$10$xbe267.x/EN5Lz6b24Hhuehof8YPtjeXUe0u0V98TfohLy3YR2pj." # encoded in Base64 password "123456"
+  - changeSet:
+      id: 2
+      author: Artem
+      changes:
+        - insert:
+            tableName: user_details
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: telegram_id
+                  value: gregtg
+              - column:
+                  name: mobile_phone
+                  value: "+1234567890"
+        - insert:
+            tableName: user_details
+            columns:
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: telegram_id
+                  value: Alexoo
+              - column:
+                  name: mobile_phone
+                  value: "+1234567821"
+        - insert:
+            tableName: user_details
+            columns:
+              - column:
+                  name: user_id
+                  value: 3
+              - column:
+                  name: telegram_id
+                  value: jamestg
+              - column:
+                  name: mobile_phone
+                  value: "+1234567663"
+        - insert:
+            tableName: user_details
+            columns:
+              - column:
+                  name: user_id
+                  value: 4
+              - column:
+                  name: telegram_id
+                  value: jwttoken
+              - column:
+                  name: mobile_phone
+                  value: "+1234567444"

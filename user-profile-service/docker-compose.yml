@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:15.3-alpine
+    container_name: postgres_local
+    environment:
+      POSTGRES_DB: ${UPS_DB_NAME}
+      POSTGRES_USER: ${UPS_DB_USERNAME}
+      POSTGRES_PASSWORD: ${UPS_DB_PASSWORD}
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: team3@iprody.com
+      PGADMIN_DEFAULT_PASSWORD: secret
+    volumes:
+      - ./pgadmin4/data:/var/lib/pgadmin
+    ports:
+      - "8888:80"
+    restart: always
+    depends_on:
+      - postgres
+
+  user-profile-service:
+    container_name: user-profile-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8443:8443"
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      BASE_PATH: ${UPS_API_BASE_PATH}
+      DB_HOST: ${UPS_DB_HOST}
+      DB_PORT: ${UPS_DB_PORT}
+      DB_NAME: ${UPS_DB_NAME}
+      DB_USERNAME: ${UPS_DB_USERNAME}
+      DB_PASSWORD: ${UPS_DB_PASSWORD}
+    depends_on:
+      - postgres
